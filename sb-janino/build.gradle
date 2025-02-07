@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.genuinecoder'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.mysql:mysql-connector-j'
+    // https://mvnrepository.com/artifact/org.graalvm.polyglot/polyglot
+    implementation group: 'org.graalvm.polyglot', name: 'polyglot', version: '24.1.1'
+// https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20240303'
+// https://mvnrepository.com/artifact/org.codehaus.janino/janino
+    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.1.12'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
