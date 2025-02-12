@@ -11,21 +11,25 @@ Janino implements the "commons-compiler" API and offers a super-small, super-fas
 - **Embedded Use:** Its small footprint makes it ideal for applications that need runtime code compilation.
 - **Independence:** It does not rely on the JDK’s `tools.jar`, which enhances portability and ease of integration.
 
+Janino is a runtime Java compiler—it compiles Java code from a string (or other input) dynamically when our program is running, not when our application is built with javac. In other words, if we supply a Java code snippet as a string, Janino’s API (for example, via its SimpleCompiler) will compile that code on the fly during execution. This allows we to load and execute new classes without having to precompile them as part of our overall application.
 
----
+For instance, when we call the SimpleCompiler’s cook() method with our source code string, Janino compiles the code at that moment (i.e. at runtime), then loads the resulting class into the JVM so we can instantiate and invoke its methods immediately.
+
+This dynamic (runtime) compilation is useful in scenarios where we need to evaluate or modify code on the fly. However, it’s important to note that if we’re using GraalVM’s Polyglot API to embed code from guest languages, Java isn’t treated as a guest language because Java is already the host language. That’s why for dynamically evaluating Java code, we would either use Janino (which compiles at runtime) or a tool like JShell.
+
 
 ### Why Use Janino?
 
-There are several reasons to consider Janino for your application:
+There are several reasons to consider Janino for our application:
 
 1. **Runtime Code Evaluation:**  
-   Janino is particularly useful for scenarios where you want to compile and run code on the fly. For example, you might need to evaluate user-defined expressions or rules at runtime.
+   Janino is particularly useful for scenarios where we want to compile and run code on the fly. For example, we might need to evaluate user-defined expressions or rules at runtime.
 
 2. **Embedded Scripting:**  
    Instead of integrating a full scripting engine, Janino allows developers to embed a Java-based scripting capability within their applications.
 
 3. **Simplified Deployment:**  
-   Since Janino is self-contained and does not depend on external compiler tools, it simplifies deployment in environments where you might not have access to the full JDK tools.
+   Since Janino is self-contained and does not depend on external compiler tools, it simplifies deployment in environments where we might not have access to the full JDK tools.
 
 4. **Performance Considerations:**  
    For small code snippets, Janino offers much faster compilation times compared to using the standard Java compiler, which can be crucial in performance-sensitive applications.
@@ -38,7 +42,7 @@ Here are some examples that demonstrate how Janino can be used in different scen
 
 #### 1. Evaluating an Expression
 
-Suppose you need to evaluate a simple arithmetic expression at runtime. Janino can compile a small snippet of Java code to accomplish this:
+Suppose we need to evaluate a simple arithmetic expression at runtime. Janino can compile a small snippet of Java code to accomplish this:
 
 ```java
 import org.codehaus.janino.ExpressionEvaluator;
@@ -64,7 +68,7 @@ In this example:
 
 #### 2. Compiling a Class at Runtime
 
-Janino also allows you to compile entire classes dynamically. This can be useful when you need to generate classes on the fly based on user input or configuration:
+Janino also allows we to compile entire classes dynamically. This can be useful when we need to generate classes on the fly based on user input or configuration:
 
 ```java
 import org.codehaus.janino.SimpleCompiler;
@@ -102,7 +106,7 @@ In this case:
 
 ### Maven Integration
 
-To integrate Janino into your Maven project, include the following dependency in your `pom.xml`:
+To integrate Janino into our Maven project, include the following dependency in our `pom.xml`:
 
 ```xml
 <dependency>
@@ -114,13 +118,12 @@ To integrate Janino into your Maven project, include the following dependency in
 
 This dependency makes Janino available for compiling code dynamically at runtime.
 
-*(Reference: cite40†Janino  » cite41†3.1.12)*
 
 ---
 
 ### Conclusion
 
-Janino is a valuable tool for applications that require runtime code evaluation or dynamic compilation of Java code. Its lightweight nature, ease of integration, and performance advantages make it an ideal choice for embedding a compiler within your application. Whether you are evaluating expressions or compiling classes on the fly, Janino provides a robust solution that fits within a wide array of use cases.
+Janino is a valuable tool for applications that require runtime code evaluation or dynamic compilation of Java code. Its lightweight nature, ease of integration, and performance advantages make it an ideal choice for embedding a compiler within our application. Whether we are evaluating expressions or compiling classes on the fly, Janino provides a robust solution that fits within a wide array of use cases.
 
 ---
 
